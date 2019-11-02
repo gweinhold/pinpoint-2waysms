@@ -1,0 +1,59 @@
+{
+    "Report": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "1"
+                    },
+                    "CreateDateTime": {
+                        "S": "2019-11-01T19:58:22.947Z"
+                    },
+                    "Body": {
+                        "S": "Sample report data for #1"
+                    },
+                    "CreatedBy": {
+                        "S": "Max"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "2"
+                    },
+                    "CreateDateTime": {
+                        "S": "2019-09-23T05:33:22.123Z"
+                    },
+                    "Body": {
+                        "S": "Sample report data for #2"
+                    },
+                    "CreatedBy": {
+                        "S": "Sunil"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "3"
+                    },
+                    "CreateDateTime": {
+                        "S": "2019-10-15T23:58:22.947Z"
+                    },
+                    "Body": {
+                        "S": "Sample report data for #3"
+                    },
+                    "CreatedBy": {
+                        "S": "Mike"
+                    }
+
+                }
+            }
+        }
+    ]
+}
