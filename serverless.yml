@@ -18,7 +18,7 @@ provider:
       Action:
         - "mobiletargeting:SendMessages"
       Resource:
-        - "arn:aws:mobiletargeting:us-west-2:<accountid>:apps/<projectid>/*"
+        - "arn:aws:mobiletargeting:${self:provider.region}:012345678912:apps/${self:provider.environment.projectId}/*"
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -31,8 +31,8 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.dynamodbTable}"  
   environment:
     region: ${self:provider.region}
-    originationNumber: "<longcode>"
-    projectId: "<projectid>"
+    originationNumber: "+17148675309"
+    projectId: "14f0aecacb69421a88a0de8a56946417"
     dynamodbTable: "Report"
 
 package:
@@ -63,14 +63,3 @@ resources:
        ProvisionedThroughput:
          ReadCapacityUnits: 1
          WriteCapacityUnits: 1
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"

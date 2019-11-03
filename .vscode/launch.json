@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [    
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "C:\\Users\\geoff\\.dotnet\\tools\\.store\\amazon.lambda.testtool-2.1\\0.9.5\\amazon.lambda.testtool-2.1\\0.9.5\\tools\\netcoreapp2.1\\any\\Amazon.Lambda.TestTool.dll",
+            "args": [],
+            "env": {"region":"us-west-2", "originationNumber":"+17148675309", "projectId":"14f0aecacb69421a88a0de8a56946417", "dynamodbTable":"Report"},
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

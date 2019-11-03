@@ -18,14 +18,15 @@ namespace AwsDotnetCsharp
     {
         private readonly AmazonPinpointClient client;
         private readonly AmazonDynamoDBClient dBClient;
-
         private readonly string region;
         private readonly string originationNumber;
         private readonly string projectId;
         private readonly string tableName;
-        private static readonly string messageType = "TRANSACTIONAL";
-        private static readonly string registeredKeyword = "myKeyword";
-        private static readonly string senderId = "mySenderId";
+        private const string MessageType = "TRANSACTIONAL";
+        private const string RegisteredKeyword = "myKeyword";
+        private const string SenderId = "mySenderId";
+        private const string DefaultMessage = "Thanks for your message";
+        private const string NoDataFoundMessage = "No report found";
 
         public Handler()
         {
@@ -54,10 +55,10 @@ namespace AwsDotnetCsharp
 
                 var smsResponse = new SMSMessage
                 {
-                    MessageType = messageType,
+                    MessageType = MessageType,
                     OriginationNumber = originationNumber,
-                    SenderId = senderId,
-                    Keyword = registeredKeyword
+                    SenderId = SenderId,
+                    Keyword = RegisteredKeyword
                 };
 
                 string destinationNumber = reply.originationNumber;
@@ -65,7 +66,7 @@ namespace AwsDotnetCsharp
 
                 if (incomingBody.IndexOf(' ') <= 0)
                 {
-                    smsResponse.Body = "Thanks for your message";
+                    smsResponse.Body = DefaultMessage;
                     await SendReplyToSender(smsResponse, destinationNumber);
                     return null;
                 }
@@ -75,17 +76,14 @@ namespace AwsDotnetCsharp
                 switch (prefix.ToUpper())
                 {
                     case "REPORT":
-                        Console.WriteLine("Getting Report");
-                        string reportId = incomingBody.Substring(6, incomingBody.Length - 6);
+                        string reportId = incomingBody.Substring(7);
                         smsResponse.Body = GetReport(reportId).Result;
                         break;
                     case "ECHO":
-                        Console.WriteLine("Echo");
-                        smsResponse.Body = incomingBody.Substring(4, incomingBody.Length - 4);
+                        smsResponse.Body = incomingBody.Substring(5);
                         break;
                     default:
-                        Console.WriteLine("Default");
-                        smsResponse.Body = "Thanks for your message -1";
+                        smsResponse.Body = DefaultMessage;
                         break;
                 }
 
@@ -101,20 +99,13 @@ namespace AwsDotnetCsharp
 
             var table = Table.LoadTable(dBClient, tableName);
             var document = await table.GetItemAsync(reportId);
-            Console.WriteLine(document["Id"].AsString());
+            if (document == null)
+            {
+                Console.WriteLine("No data found");
+                return NoDataFoundMessage;
+            }
 
-            // var request = new GetItemRequest
-            // {
-            //     TableName = tableName,
-            //     Key = new Dictionary<string, AttributeValue>()
-            //     {
-            //         { "Id", new AttributeValue { S = reportId } }
-            //     }
-            // };
-
-            //            var response = await dBClient.GetItemAsync(request);
             var message = $"Report: {document["Id"].AsString()} Created by {document["CreatedBy"].AsString()} on {document["CreateDateTime"].AsString()} Data: {document["Body"].AsString()}";
-
             Console.WriteLine(message);
             return message;
         }

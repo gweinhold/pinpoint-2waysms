@@ -1,0 +1,38 @@
+{
+    "Records": [
+      {
+        "EventVersion": "1.0",
+        "EventSubscriptionArn": "arn:aws:sns:EXAMPLE",
+        "EventSource": "aws:sns",
+        "Sns": {
+          "SignatureVersion": "1",
+          "Timestamp": "1970-01-01T00:00:00.000Z",
+          "Signature": "EXAMPLE",
+          "SigningCertUrl": "EXAMPLE",
+          "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+          "Message": "{
+                \"originationNumber\": \"+17145551212\",
+                \"destinationNumber\": \"+17148675309\",
+                \"messageKeyword\": \"keyword_012345678912\",
+                \"messageBody\": \"Report 1\",
+                \"inboundMessageId\": \"4d2e7a7b-ab49-54dd-b760-2c438c17c547\",
+                \"previousPublishedMessageId\": \"lin7fqpjn07005l0lhj10neflphtkjn341jfpu00\"
+            }",
+          "MessageAttributes": {
+            "Test": {
+              "Type": "String",
+              "Value": "TestString"
+            },
+            "TestBinary": {
+              "Type": "Binary",
+              "Value": "TestBinary"
+            }
+          },
+          "Type": "Notification",
+          "UnsubscribeUrl": "EXAMPLE",
+          "TopicArn": "arn:aws:sns:EXAMPLE",
+          "Subject": "TestInvoke"
+        }
+      }
+    ]
+  }
